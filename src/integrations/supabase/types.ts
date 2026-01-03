@@ -14,16 +14,334 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      analytics_events: {
+        Row: {
+          created_at: string | null
+          event_type: string
+          id: string
+          metadata: Json | null
+          page: string | null
+          section: string | null
+          time_spent: number | null
+          visitor_id: string | null
+          visitor_location: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_type: string
+          id?: string
+          metadata?: Json | null
+          page?: string | null
+          section?: string | null
+          time_spent?: number | null
+          visitor_id?: string | null
+          visitor_location?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_type?: string
+          id?: string
+          metadata?: Json | null
+          page?: string | null
+          section?: string | null
+          time_spent?: number | null
+          visitor_id?: string | null
+          visitor_location?: string | null
+        }
+        Relationships: []
+      }
+      contact_submissions: {
+        Row: {
+          budget_range: string | null
+          business_type: Database["public"]["Enums"]["contact_type"]
+          company: string | null
+          created_at: string | null
+          email: string
+          goals: string | null
+          id: string
+          is_read: boolean | null
+          name: string
+          timeline: string | null
+        }
+        Insert: {
+          budget_range?: string | null
+          business_type: Database["public"]["Enums"]["contact_type"]
+          company?: string | null
+          created_at?: string | null
+          email: string
+          goals?: string | null
+          id?: string
+          is_read?: boolean | null
+          name: string
+          timeline?: string | null
+        }
+        Update: {
+          budget_range?: string | null
+          business_type?: Database["public"]["Enums"]["contact_type"]
+          company?: string | null
+          created_at?: string | null
+          email?: string
+          goals?: string | null
+          id?: string
+          is_read?: boolean | null
+          name?: string
+          timeline?: string | null
+        }
+        Relationships: []
+      }
+      email_subscribers: {
+        Row: {
+          email: string
+          id: string
+          is_active: boolean | null
+          subscribed_at: string | null
+        }
+        Insert: {
+          email: string
+          id?: string
+          is_active?: boolean | null
+          subscribed_at?: string | null
+        }
+        Update: {
+          email?: string
+          id?: string
+          is_active?: boolean | null
+          subscribed_at?: string | null
+        }
+        Relationships: []
+      }
+      portfolio_projects: {
+        Row: {
+          after_metrics: string | null
+          before_metrics: string | null
+          client_name: string
+          created_at: string | null
+          description: string
+          display_order: number | null
+          id: string
+          image_url: string | null
+          industry: string
+          is_visible: boolean | null
+          status: Database["public"]["Enums"]["project_status"] | null
+          testimonial: string | null
+          testimonial_author: string | null
+          testimonial_company: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          after_metrics?: string | null
+          before_metrics?: string | null
+          client_name: string
+          created_at?: string | null
+          description: string
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          industry: string
+          is_visible?: boolean | null
+          status?: Database["public"]["Enums"]["project_status"] | null
+          testimonial?: string | null
+          testimonial_author?: string | null
+          testimonial_company?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          after_metrics?: string | null
+          before_metrics?: string | null
+          client_name?: string
+          created_at?: string | null
+          description?: string
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          industry?: string
+          is_visible?: boolean | null
+          status?: Database["public"]["Enums"]["project_status"] | null
+          testimonial?: string | null
+          testimonial_author?: string | null
+          testimonial_company?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      pricing_tiers: {
+        Row: {
+          created_at: string | null
+          description: string
+          display_order: number | null
+          features: Json | null
+          id: string
+          is_visible: boolean | null
+          name: string
+          price: string | null
+          target_audience: string | null
+          tier: Database["public"]["Enums"]["pricing_tier"]
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          display_order?: number | null
+          features?: Json | null
+          id?: string
+          is_visible?: boolean | null
+          name: string
+          price?: string | null
+          target_audience?: string | null
+          tier: Database["public"]["Enums"]["pricing_tier"]
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          display_order?: number | null
+          features?: Json | null
+          id?: string
+          is_visible?: boolean | null
+          name?: string
+          price?: string | null
+          target_audience?: string | null
+          tier?: Database["public"]["Enums"]["pricing_tier"]
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          created_at: string | null
+          description: string
+          display_order: number | null
+          icon: string | null
+          id: string
+          is_visible: boolean | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          is_visible?: boolean | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          is_visible?: boolean | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      subsidiaries: {
+        Row: {
+          created_at: string | null
+          description: string
+          display_order: number | null
+          icon: string | null
+          id: string
+          is_visible: boolean | null
+          name: string
+          status: Database["public"]["Enums"]["subsidiary_status"] | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          is_visible?: boolean | null
+          name: string
+          status?: Database["public"]["Enums"]["subsidiary_status"] | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          is_visible?: boolean | null
+          name?: string
+          status?: Database["public"]["Enums"]["subsidiary_status"] | null
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          client_name: string
+          company: string
+          content: string
+          country: string | null
+          created_at: string | null
+          display_order: number | null
+          id: string
+          is_approved: boolean | null
+        }
+        Insert: {
+          client_name: string
+          company: string
+          content: string
+          country?: string | null
+          created_at?: string | null
+          display_order?: number | null
+          id?: string
+          is_approved?: boolean | null
+        }
+        Update: {
+          client_name?: string
+          company?: string
+          content?: string
+          country?: string | null
+          created_at?: string | null
+          display_order?: number | null
+          id?: string
+          is_approved?: boolean | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      contact_type: "startup" | "established" | "idea"
+      pricing_tier: "foundation" | "growth" | "partnership"
+      project_status: "active" | "upcoming" | "completed"
+      subsidiary_status: "active" | "upcoming" | "planned"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +468,12 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      contact_type: ["startup", "established", "idea"],
+      pricing_tier: ["foundation", "growth", "partnership"],
+      project_status: ["active", "upcoming", "completed"],
+      subsidiary_status: ["active", "upcoming", "planned"],
+    },
   },
 } as const
