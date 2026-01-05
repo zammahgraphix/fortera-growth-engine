@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { companyInfo } from "@/config/contact";
 import forteraLogo from "@/assets/fortera-logo.png";
+import heroMainImage from "@/assets/hero-main.jpg";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center gradient-hero overflow-hidden pt-20">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary-light/5 rounded-full blur-3xl" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <img
+          src={heroMainImage}
+          alt="Global Business Network"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
       </div>
 
       <div className="container-wide relative z-10">
