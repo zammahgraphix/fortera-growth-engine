@@ -19,8 +19,8 @@ export const digitalInfo = {
 // Contact Information
 export const contactDetails = {
   email: "hello@forteraglobalgroup.com",
-  phone: "+234 800 000 0000",
-  whatsapp: "+2348000000000", // WhatsApp number without spaces or special characters
+  phone: "+234 905 926 2128",
+  whatsapp: "+2349059262128", // WhatsApp number without spaces or special characters
   address: {
     street: "123 Business District",
     city: "Lagos",
@@ -32,11 +32,12 @@ export const contactDetails = {
 
 // Social Media Links
 export const socialLinks = {
-  twitter: "https://twitter.com/forteraglobal",
-  linkedin: "https://linkedin.com/company/forteraglobalgroup",
-  instagram: "https://instagram.com/forteraglobalgroup",
-  facebook: "https://facebook.com/forteraglobalgroup",
-  youtube: "https://youtube.com/@forteraglobalgroup",
+  twitter: "https://twitter.com/forteradigital",
+  linkedin: "https://linkedin.com/company/forteradigital",
+  instagram: "https://instagram.com/forteradigital",
+  facebook: "https://facebook.com/forteradigital",
+  youtube: "https://youtube.com/@forteradigital",
+  tiktok: "https://tiktok.com/@forteradigital",
 };
 
 // Navigation Links
