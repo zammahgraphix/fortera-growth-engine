@@ -10,7 +10,6 @@ import {
   FolderOpen,
   Settings,
   LogOut,
-  BarChart3,
   Star,
   DollarSign,
 } from "lucide-react";
@@ -22,8 +21,9 @@ import EmailSubscribers from "@/components/admin/EmailSubscribers";
 import PortfolioManager from "@/components/admin/PortfolioManager";
 import TestimonialsManager from "@/components/admin/TestimonialsManager";
 import PricingManager from "@/components/admin/PricingManager";
+import PasswordChange from "@/components/admin/PasswordChange";
 
-type TabType = "overview" | "contacts" | "subscribers" | "portfolio" | "testimonials" | "pricing";
+type TabType = "overview" | "contacts" | "subscribers" | "portfolio" | "testimonials" | "pricing" | "settings";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -86,6 +86,7 @@ const AdminDashboard = () => {
     { id: "portfolio" as TabType, label: "Portfolio", icon: FolderOpen },
     { id: "testimonials" as TabType, label: "Testimonials", icon: Star },
     { id: "pricing" as TabType, label: "Pricing", icon: DollarSign },
+    { id: "settings" as TabType, label: "Settings", icon: Settings },
   ];
 
   if (loading) {
@@ -154,6 +155,7 @@ const AdminDashboard = () => {
           {activeTab === "portfolio" && <PortfolioManager />}
           {activeTab === "testimonials" && <TestimonialsManager />}
           {activeTab === "pricing" && <PricingManager />}
+          {activeTab === "settings" && <PasswordChange />}
         </div>
       </main>
     </div>
