@@ -22,11 +22,11 @@ export const contactDetails = {
   phone: "+234 905 926 2128",
   whatsapp: "+2349059262128", // WhatsApp number without spaces or special characters
   address: {
-    street: "123 Business District",
-    city: "Lagos",
-    state: "Lagos State",
+    street: "",
+    city: "Abuja",
+    state: "FCT",
     country: "Nigeria",
-    zip: "100001",
+    zip: "",
   },
 };
 
@@ -49,10 +49,10 @@ export const mainNavLinks = [
 ];
 
 export const digitalNavLinks = [
-  { label: "Services", href: "/digital#services" },
-  { label: "Portfolio", href: "/digital#portfolio" },
-  { label: "Pricing", href: "/digital#pricing" },
-  { label: "Contact", href: "/digital#contact" },
+  { label: "Services", href: "/digital/services" },
+  { label: "Portfolio", href: "/digital/portfolio" },
+  { label: "Pricing", href: "/digital/pricing" },
+  { label: "Contact", href: "/digital/contact" },
 ];
 
 // Footer Links

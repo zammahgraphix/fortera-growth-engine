@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { FolderOpen, Plus, Pencil, Trash2, Eye, EyeOff, GripVertical, X } from "lucide-react";
+import { FolderOpen, Plus, Pencil, Trash2, Eye, EyeOff, GripVertical, X, Upload, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -35,6 +35,8 @@ const PortfolioManager = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<PortfolioProject | null>(null);
   const [formData, setFormData] = useState<Partial<ProjectInsert>>(emptyProject);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
 
   const { data: projects, isLoading } = useQuery({
@@ -166,6 +168,48 @@ const PortfolioManager = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select an image file");
+      return;
+    }
+
+    // Validate file size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image must be less than 5MB");
+      return;
+    }
+
+    setIsUploading(true);
+
+    try {
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = `projects/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("portfolio-images")
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from("portfolio-images")
+        .getPublicUrl(filePath);
+
+      handleInputChange("image_url", publicUrl);
+      toast.success("Image uploaded successfully");
+    } catch (error: any) {
+      toast.error(error.message || "Failed to upload image");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -232,14 +276,60 @@ const PortfolioManager = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="image_url">Project Image URL</Label>
-                <Input
-                  id="image_url"
-                  type="url"
-                  value={formData.image_url || ""}
-                  onChange={(e) => handleInputChange("image_url", e.target.value)}
-                  placeholder="https://example.com/image.jpg"
-                />
+                <Label>Project Image</Label>
+                <div className="flex flex-col gap-3">
+                  {formData.image_url && (
+                    <div className="relative w-full h-32 rounded-lg overflow-hidden bg-muted">
+                      <img
+                        src={formData.image_url}
+                        alt="Project preview"
+                        className="w-full h-full object-cover"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleInputChange("image_url", "")}
+                        className="absolute top-2 right-2 p-1 bg-destructive text-destructive-foreground rounded-full hover:bg-destructive/90"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+                  <div className="flex gap-2">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={isUploading}
+                      className="flex-1"
+                    >
+                      {isUploading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                          Uploading...
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="w-4 h-4 mr-2" />
+                          Upload Image
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                  <Input
+                    id="image_url"
+                    type="url"
+                    value={formData.image_url || ""}
+                    onChange={(e) => handleInputChange("image_url", e.target.value)}
+                    placeholder="Or paste image URL here..."
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
