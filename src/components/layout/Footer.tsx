@@ -1,16 +1,26 @@
 import { Link } from "react-router-dom";
-import { Twitter, Linkedin, Instagram, Facebook, Youtube } from "lucide-react";
-import { companyInfo, contactDetails, socialLinks, footerLinks } from "@/config/contact";
+import { Twitter, Linkedin, Instagram, Facebook, Youtube, Globe } from "lucide-react";
+import { companyInfo, contactDetails, footerLinks } from "@/config/contact";
+import { useSocialLinks } from "@/hooks/useSocialLinks";
 import forteraIcon from "@/assets/fortera-icon.png";
 
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Twitter,
+  twitter: Twitter,
+  Linkedin,
+  linkedin: Linkedin,
+  Instagram,
+  instagram: Instagram,
+  Facebook,
+  facebook: Facebook,
+  Youtube,
+  youtube: Youtube,
+  Globe,
+  globe: Globe,
+};
+
 const Footer = () => {
-  const socialIcons = [
-    { icon: Twitter, href: socialLinks.twitter, label: "Twitter" },
-    { icon: Linkedin, href: socialLinks.linkedin, label: "LinkedIn" },
-    { icon: Instagram, href: socialLinks.instagram, label: "Instagram" },
-    { icon: Facebook, href: socialLinks.facebook, label: "Facebook" },
-    { icon: Youtube, href: socialLinks.youtube, label: "YouTube" },
-  ];
+  const { data: socialLinks = [] } = useSocialLinks();
 
   return (
     <footer className="bg-foreground text-background">
@@ -27,18 +37,21 @@ const Footer = () => {
               {companyInfo.description}
             </p>
             <div className="flex gap-4">
-              {socialIcons.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-background/20 transition-colors"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
+              {socialLinks.map((social) => {
+                const IconComponent = iconMap[social.icon || social.platform] || Globe;
+                return (
+                  <a
+                    key={social.id}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-background/20 transition-colors"
+                    aria-label={social.platform}
+                  >
+                    <IconComponent className="w-5 h-5" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 

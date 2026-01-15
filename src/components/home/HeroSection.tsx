@@ -1,21 +1,24 @@
-import { Link } from "react-router-dom";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useSiteContent } from "@/hooks/useSiteContent";
+import { contactDetails } from "@/config/contact";
 import forteraLogo from "@/assets/fortera-logo.png";
-import heroMainImage from "@/assets/hero-main.jpg";
 
 const HeroSection = () => {
+  const { data: content } = useSiteContent();
+  
+  const whatsappUrl = `https://wa.me/${contactDetails.whatsapp}?text=${encodeURIComponent(
+    "Hello, I'm interested in learning more about Fortera's services."
+  )}`;
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Background image */}
-      <div className="absolute inset-0">
-        <img
-          src={heroMainImage}
-          alt="Global Business Network"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
-      </div>
+      {/* Gradient mesh background */}
+      <div className="absolute inset-0 gradient-hero-mesh" />
+      
+      {/* Decorative elements */}
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-primary-light/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '-3s' }} />
 
       <div className="container-wide relative z-10">
         <div className="max-w-4xl mx-auto text-center">
@@ -30,18 +33,19 @@ const HeroSection = () => {
 
           {/* Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-fade-in-up">
-            <span className="text-foreground">Fortera</span>{" "}
-            <span className="gradient-text">Global Group</span>
+            <span className="text-foreground">
+              {content?.hero_headline || "Fortera Global Group"}
+            </span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-4 animate-fade-in-up stagger-1">
-            A multi-industry holding company building, funding, and scaling structured businesses for long-term impact.
+            {content?.hero_subheadline || "A multi-industry holding company building, funding, and scaling structured businesses for long-term impact."}
           </p>
 
           {/* Supporting line */}
           <p className="text-base text-muted-foreground/80 max-w-xl mx-auto mb-10 animate-fade-in-up stagger-2">
-            We provide vision, capital, governance, and systems that power companies across real estate, technology, finance, energy, and beyond.
+            {content?.hero_supporting || "We provide vision, capital, governance, and systems that power companies across real estate, technology, finance, energy, and beyond."}
           </p>
 
           {/* CTAs */}
@@ -52,11 +56,15 @@ const HeroSection = () => {
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </a>
-            <Link to="/digital">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Button variant="hero-outline" size="xl">
-                Fortera Digital
+                Work With Us
               </Button>
-            </Link>
+            </a>
           </div>
         </div>
 
