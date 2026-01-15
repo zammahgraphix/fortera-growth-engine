@@ -12,6 +12,8 @@ import {
   LogOut,
   Star,
   DollarSign,
+  FileText,
+  Share2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import forteraIcon from "@/assets/fortera-icon.png";
@@ -22,8 +24,10 @@ import PortfolioManager from "@/components/admin/PortfolioManager";
 import TestimonialsManager from "@/components/admin/TestimonialsManager";
 import PricingManager from "@/components/admin/PricingManager";
 import PasswordChange from "@/components/admin/PasswordChange";
+import SiteContentManager from "@/components/admin/SiteContentManager";
+import SocialLinksManager from "@/components/admin/SocialLinksManager";
 
-type TabType = "overview" | "contacts" | "subscribers" | "portfolio" | "testimonials" | "pricing" | "settings";
+type TabType = "overview" | "contacts" | "subscribers" | "portfolio" | "testimonials" | "pricing" | "content" | "social" | "settings";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -86,6 +90,8 @@ const AdminDashboard = () => {
     { id: "portfolio" as TabType, label: "Portfolio", icon: FolderOpen },
     { id: "testimonials" as TabType, label: "Testimonials", icon: Star },
     { id: "pricing" as TabType, label: "Pricing", icon: DollarSign },
+    { id: "content" as TabType, label: "Site Content", icon: FileText },
+    { id: "social" as TabType, label: "Social Links", icon: Share2 },
     { id: "settings" as TabType, label: "Settings", icon: Settings },
   ];
 
@@ -155,6 +161,8 @@ const AdminDashboard = () => {
           {activeTab === "portfolio" && <PortfolioManager />}
           {activeTab === "testimonials" && <TestimonialsManager />}
           {activeTab === "pricing" && <PricingManager />}
+          {activeTab === "content" && <SiteContentManager />}
+          {activeTab === "social" && <SocialLinksManager />}
           {activeTab === "settings" && <PasswordChange />}
         </div>
       </main>

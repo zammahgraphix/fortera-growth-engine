@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Send } from "lucide-react";
+import { ArrowRight, Send, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import SectionBadge from "@/components/common/SectionBadge";
-import { contactDetails, socialLinks } from "@/config/contact";
+import { contactDetails } from "@/config/contact";
 
 type BusinessType = "startup" | "established" | "idea";
 
@@ -67,6 +67,10 @@ const ContactSection = () => {
     }
   };
 
+  const whatsappUrl = `https://wa.me/${contactDetails.whatsapp}?text=${encodeURIComponent(
+    "Hello, I'm interested in Fortera Digital's services."
+  )}`;
+
   return (
     <section id="contact" className="section-padding bg-secondary/30">
       <div className="container-wide">
@@ -86,6 +90,19 @@ const ContactSection = () => {
 
             <div className="space-y-6">
               <div>
+                <h4 className="font-semibold text-foreground mb-2">WhatsApp</h4>
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-primary hover:underline"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  {contactDetails.phone}
+                </a>
+              </div>
+
+              <div>
                 <h4 className="font-semibold text-foreground mb-2">Email</h4>
                 <a
                   href={`mailto:${contactDetails.email}`}
@@ -96,21 +113,24 @@ const ContactSection = () => {
               </div>
 
               <div>
-                <h4 className="font-semibold text-foreground mb-2">Phone</h4>
-                <a
-                  href={`tel:${contactDetails.phone}`}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {contactDetails.phone}
-                </a>
-              </div>
-
-              <div>
                 <h4 className="font-semibold text-foreground mb-2">Location</h4>
                 <p className="text-muted-foreground">
                   {contactDetails.address.city}, {contactDetails.address.country}
                 </p>
               </div>
+
+              {/* Quick WhatsApp CTA */}
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-4"
+              >
+                <Button variant="hero" size="lg">
+                  <MessageCircle className="w-5 h-5" />
+                  Chat on WhatsApp
+                </Button>
+              </a>
             </div>
           </div>
 

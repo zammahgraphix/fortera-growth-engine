@@ -1,7 +1,10 @@
 import { Target, Wallet, Settings, Shield, Globe, Lightbulb, Users } from "lucide-react";
 import SectionBadge from "@/components/common/SectionBadge";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const AboutSection = () => {
+  const { data: content } = useSiteContent();
+
   const capabilities = [
     {
       icon: Target,
@@ -46,7 +49,7 @@ const AboutSection = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <div className="animate-fade-in-up">
-            <SectionBadge>About Fortera</SectionBadge>
+            <SectionBadge>{content?.about_title || "About Fortera"}</SectionBadge>
             
             <h2 className="text-3xl md:text-4xl font-bold mt-6 mb-6">
               The Vision Behind{" "}
@@ -54,12 +57,32 @@ const AboutSection = () => {
             </h2>
 
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              Fortera Global Group is the brain and backbone of all Fortera companies. We set direction, provide capital, protect the brand, and ensure every subsidiary operates at the highest standard.
+              {content?.about_content || "Fortera Global Group is the brain and backbone of all Fortera companies. We set direction, provide capital, protect the brand, and ensure every subsidiary operates at the highest standard."}
             </p>
 
             <p className="text-base text-muted-foreground/80 leading-relaxed">
               As the parent company, we do not sell services directly. Instead, we provide strategy, funding, systems, and leadership to our operating subsidiaries, enabling them to focus on what they do best — delivering exceptional value to their clients.
             </p>
+
+            {/* Mission & Vision */}
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="p-5 rounded-xl bg-accent/50">
+                <h3 className="font-semibold text-foreground mb-2">
+                  {content?.mission_title || "Our Mission"}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {content?.mission_content || "To build, fund, and scale structured businesses that create lasting value across industries and communities."}
+                </p>
+              </div>
+              <div className="p-5 rounded-xl bg-accent/50">
+                <h3 className="font-semibold text-foreground mb-2">
+                  {content?.vision_title || "Our Vision"}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {content?.vision_content || "To become the leading multi-industry holding company in Africa, powering sustainable growth and innovation."}
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Right - Capabilities Grid */}
