@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Twitter, Linkedin, Instagram, Facebook, Youtube, Globe } from "lucide-react";
+import { Twitter, Linkedin, Instagram, Facebook, Youtube, Globe, Lock } from "lucide-react";
 import { companyInfo, contactDetails, footerLinks } from "@/config/contact";
 import { useSocialLinks } from "@/hooks/useSocialLinks";
 import forteraIcon from "@/assets/fortera-icon.png";
@@ -116,7 +116,7 @@ const Footer = () => {
             <p className="text-sm text-background/60">
               © {new Date().getFullYear()} {companyInfo.name}. All rights reserved.
             </p>
-            <div className="flex gap-6">
+            <div className="flex items-center gap-6">
               {footerLinks.legal.map((link) => (
                 <Link
                   key={link.label}
@@ -126,6 +126,13 @@ const Footer = () => {
                   {link.label}
                 </Link>
               ))}
+              <Link
+                to="/admin"
+                className="text-sm text-background/40 hover:text-background/60 transition-colors flex items-center gap-1"
+              >
+                <Lock className="w-3 h-3" />
+                Admin
+              </Link>
             </div>
           </div>
         </div>
