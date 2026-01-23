@@ -43,6 +43,19 @@ const ContactSection = () => {
 
       if (error) throw error;
 
+      // Send email notifications (non-blocking)
+      supabase.functions.invoke("send-contact-notification", {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          businessType: formData.businessType,
+          goals: formData.goals,
+          budgetRange: formData.budgetRange,
+          timeline: formData.timeline,
+        },
+      }).catch((err) => console.error("Email notification failed:", err));
+
       toast({
         title: "Message received!",
         description: "We'll review your submission and get back to you within 24-48 hours.",
