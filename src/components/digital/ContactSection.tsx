@@ -8,12 +8,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import SectionBadge from "@/components/common/SectionBadge";
-import { contactDetails } from "@/config/contact";
+import { useContactSettings } from "@/hooks/useContactSettings";
 
 type BusinessType = "startup" | "established" | "idea";
 
 const ContactSection = () => {
   const { toast } = useToast();
+  const { settings, getWhatsAppUrl } = useContactSettings();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -67,9 +68,7 @@ const ContactSection = () => {
     }
   };
 
-  const whatsappUrl = `https://wa.me/${contactDetails.whatsapp}?text=${encodeURIComponent(
-    "Hello, I'm interested in Fortera Digital's services."
-  )}`;
+  const whatsappUrl = getWhatsAppUrl("Hello, I'm interested in Fortera Digital's services.");
 
   return (
     <section id="contact" className="section-padding bg-secondary/30">
@@ -98,24 +97,24 @@ const ContactSection = () => {
                   className="inline-flex items-center gap-2 text-primary hover:underline"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  {contactDetails.phone}
+                  {settings.phone}
                 </a>
               </div>
 
               <div>
                 <h4 className="font-semibold text-foreground mb-2">Email</h4>
                 <a
-                  href={`mailto:${contactDetails.email}`}
+                  href={`mailto:${settings.email}`}
                   className="text-primary hover:underline"
                 >
-                  {contactDetails.email}
+                  {settings.email}
                 </a>
               </div>
 
               <div>
                 <h4 className="font-semibold text-foreground mb-2">Location</h4>
                 <p className="text-muted-foreground">
-                  {contactDetails.address.city}, {contactDetails.address.country}
+                  {settings.city}, {settings.country}
                 </p>
               </div>
 
